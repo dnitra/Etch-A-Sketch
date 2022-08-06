@@ -2,45 +2,79 @@
 const container_game = document.querySelector(".container_game")
 const colorPicker = document.querySelector("#colorpicker")
 const rainbowButton= document.querySelector("#rainbowMode")
-const size = document.querySelector("#quantity").value
+const sizeButton = document.querySelector("#size")
+const clearButton = document.querySelector("#clear")
+const sizeInput = document.querySelector("#quantity")
+const mode = document.querySelector(".mode")
 let color = colorPicker.value
 let rainbowMode = false
+let size = parseInt(document.querySelector("#quantity").value)
+
+
+
+
+layout()
+
+
+
+
+
 rainbowButton.addEventListener("click",()=>{
     if(rainbowMode == false) {rainbowMode=true}
     else if(rainbowMode == true) {rainbowMode=false}
 })
 
 
+sizeButton.addEventListener("click", resize)
+clearButton.addEventListener("click", resize)
+
+sizeInput.addEventListener('input', function () {
+	
+	// As a number
+    val = sizeInput.valueAsNumber;
+
+    if (val>100) {val = 100}
+	size = val
+
+});
 
 
-
-
-for(let i =0;i<size*size;i++){
-  
-
-    let etch = document.createElement("div")
-    etch.classList = "etch"
-    etch.style.cssText += `width: ${600/size}px;`
-    etch.style.cssText += `height: ${600/size}px;`
-    container_game.appendChild(etch)
-}
-
-const skatches = document.querySelectorAll(".etch")
-
-skatches.forEach(etch=>etch.addEventListener("mouseover",function(e){
-
-
-if(rainbowMode==true){
-    color =getRandomColor()
+function layout(){
     
-}
-else{
-    color = colorPicker.value
+    let pixels = parseInt(document.querySelector("#quantity").value)
+    
+    for(let i =0;i<pixels*pixels;i++){
+
+        let etch = document.createElement("div")
+        etch.classList = "etch"
+        etch.id = i
+        etch.style.cssText += `width: ${600/size}px;`
+        etch.style.cssText += `height: ${600/size}px;`
+        container_game.appendChild(etch)
+
+        mode.textContent = "Size: " +pixels+"x"+ pixels
+        mode.style.color = color
+    }
+    let skatches = document.querySelectorAll(".etch")
+
+    skatches.forEach(etch=>etch.addEventListener("mouseover",function(e){
+
+
+        if(rainbowMode==true){
+            color =getRandomColor()
+            
+        }
+        else{
+            color = colorPicker.value
+        }
+    
+        mode.style.color = color
+        e.target.style.cssText += `background-color: ${color}`
+        
+    }))
+
 }
 
-e.target.style.cssText += `background-color: ${color}`
-    
-}))
 
 
 
@@ -50,4 +84,13 @@ function getRandomColor(){
     let random2 = Math.floor(Math.random() * 255);
     let random3 = Math.floor(Math.random() * 255);
     return `rgb(${random1},${random2},${random3})`
+}
+
+function resize (){
+    let skatches = document.querySelectorAll(".etch")
+    skatches.forEach(etch=>  etch.remove())
+    
+    
+    layout()
+  
 }
