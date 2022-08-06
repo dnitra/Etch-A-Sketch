@@ -1,6 +1,7 @@
 
 const container_game = document.querySelector(".container_game")
 const colorPicker = document.querySelector("#colorpicker")
+const normalMode = document.querySelector("#normalMode")
 const rainbowButton= document.querySelector("#rainbowMode")
 const sizeButton = document.querySelector("#size")
 const clearButton = document.querySelector("#clear")
@@ -21,9 +22,9 @@ layout()
 
 rainbowButton.addEventListener("click",()=>{
     if(rainbowMode == false) {rainbowMode=true}
-    else if(rainbowMode == true) {rainbowMode=false}
 })
 
+normalMode.addEventListener("click",()=> {if (rainbowMode) {rainbowMode=false}})
 
 sizeButton.addEventListener("click", resize)
 clearButton.addEventListener("click", resize)
@@ -31,17 +32,14 @@ clearButton.addEventListener("click", resize)
 sizeInput.addEventListener('input', function () {
 	
 	// As a number
-    val = sizeInput.valueAsNumber;
-
-    if (val>100) {val = 100}
-	size = val
+    sizeVal()
 
 });
 
 
 function layout(){
     
-    let pixels = parseInt(document.querySelector("#quantity").value)
+    let pixels = sizeVal()
     
     for(let i =0;i<pixels*pixels;i++){
 
@@ -76,7 +74,17 @@ function layout(){
 }
 
 
+function sizeVal(){
+    let val = sizeInput.valueAsNumber;
 
+    if (val>100) {
+        val = 100 
+        sizeInput.value = 100
+    }
+	
+    size = val
+    return size
+}
 
 function getRandomColor(){
     
