@@ -9,24 +9,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <div class="container_pickers">
         <div class="mode"></div>
        
         <div class="colorPicker_container picker">
             <label for="colorpicker">Pick color:</label>
-            <input type="color" id="colorpicker" value="#000000">
-            <input id="normalMode" type="submit" name="button" value="Normal mode">
+            <input type="color" id="colorpicker" value="#000000" >
+            <input id="normalMode" class="clicked" type="submit" name="button" value="Normal mode">
         </div>
         <div class="rainbow picker">
-            <label for="rainbowMode">Try this:</label>
+            <label for="rainbowMode">Rainbow:</label>
             <input id="rainbowMode" type="submit" name="button" value="">
         </div>
+        <input id="eraser" type="submit" name="button" value="ERASER"/>
         <div class="numberPicker picker">
             <label for="quantity">Size:</label>
-            <input type="number" id="quantity"  min="4" max="100" value="10">
-            <input id="size" type="submit" name="button" value="RESIZE"/>
+            <input type="range" min="2" max="100" value="10" id="size" class="slider">
         </div>
-       
+        
         <input id="clear" type="submit" name="button" value="CLEAR"/>
         
     </div>

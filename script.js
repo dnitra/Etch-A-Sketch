@@ -2,67 +2,112 @@
 const container_game = document.querySelector(".container_game")
 const colorPicker = document.querySelector("#colorpicker")
 const normalMode = document.querySelector("#normalMode")
+
+const eraserButton = document.querySelector("#eraser")
 const rainbowButton= document.querySelector("#rainbowMode")
 const sizeButton = document.querySelector("#size")
 const clearButton = document.querySelector("#clear")
-const sizeInput = document.querySelector("#quantity")
 const mode = document.querySelector(".mode")
+
+let modeText = "Normal mode "
 let color = colorPicker.value
+let normalModeS = true
 let rainbowMode = false
-let size = parseInt(document.querySelector("#quantity").value)
+let eraser = false
+let pixels = sizeButton.valueAsNumber;
 
-
+const modes = [normalMode, eraserButton, rainbowButton]
 
 
 layout()
 
 
 
+modes.forEach(mode=>mode.addEventListener("click",e=>{
+
+    modes.forEach(mode=>{mode.classList.remove("clicked")})
+    e.target.classList.add("clicked")
+
+    }))
 
 
-rainbowButton.addEventListener("click",()=>{
-    if(rainbowMode == false) {rainbowMode=true}
+
+normalMode.addEventListener("click",()=>  {
+    rainbowMode=false
+    eraser =false
+    modeText = "Normal mode " 
+    mode.textContent =modeText+pixels+"x"+ pixels
+    color = colorPicker.value
+    mode.style.color = color
 })
 
-normalMode.addEventListener("click",()=> {if (rainbowMode) {rainbowMode=false}})
+rainbowButton.addEventListener("click",()=>{
+    if(!rainbowMode) {
+        rainbowMode=true
+        eraser = false}
+        modeText = "Rainbow mode "
+        mode.textContent = modeText+pixels+"x"+ pixels
+})
 
-sizeButton.addEventListener("click", resize)
+eraserButton.addEventListener("click",()=> {if (!eraser) {
+        
+        rainbowMode=false
+        eraser =true
+        modeText = "Eraser mode "
+        mode.style.color = "white"
+        mode.textContent = modeText+ +pixels+"x"+ pixels
+    }})
+
+
+sizeButton.addEventListener('input', ()=>{
+
+    let pixels = sizeButton.valueAsNumber;
+    mode.textContent = modeText +pixels+"x"+ pixels
+    mode.style.color = color
+    
+    
+});
+sizeButton.addEventListener('mouseup', resize);
+
+
 clearButton.addEventListener("click", resize)
 
-sizeInput.addEventListener('input', function () {
-	
-	// As a number
-    sizeVal()
 
-});
 
 
 function layout(){
+
+    let pixels = sizeButton.valueAsNumber;
     
-    let pixels = sizeVal()
+    mode.textContent = modeText+ +pixels+"x"+ pixels
     
     for(let i =0;i<pixels*pixels;i++){
-
+        
         let etch = document.createElement("div")
         etch.classList = "etch"
         etch.id = i
-        etch.style.cssText += `width: ${600/size}px;`
-        etch.style.cssText += `height: ${600/size}px;`
+        etch.style.cssText += `width: ${600/pixels}px;`
+        etch.style.cssText += `height: ${600/pixels}px;`
         container_game.appendChild(etch)
-
-        mode.textContent = "Size: " +pixels+"x"+ pixels
+       
         mode.style.color = color
+       
     }
     let skatches = document.querySelectorAll(".etch")
 
     skatches.forEach(etch=>etch.addEventListener("mouseover",function(e){
 
 
-        if(rainbowMode==true){
+        if(rainbowMode){
             color =getRandomColor()
             
         }
+        else if (eraser){
+            
+            color = "white"
+        }
         else{
+            
             color = colorPicker.value
         }
     
@@ -74,17 +119,6 @@ function layout(){
 }
 
 
-function sizeVal(){
-    let val = sizeInput.valueAsNumber;
-
-    if (val>100) {
-        val = 100 
-        sizeInput.value = 100
-    }
-	
-    size = val
-    return size
-}
 
 function getRandomColor(){
     
@@ -94,7 +128,12 @@ function getRandomColor(){
     return `rgb(${random1},${random2},${random3})`
 }
 
+
+
 function resize (){
+    
+   
+    
     let skatches = document.querySelectorAll(".etch")
     skatches.forEach(etch=>  etch.remove())
     
@@ -102,3 +141,7 @@ function resize (){
     layout()
   
 }
+
+
+
+
