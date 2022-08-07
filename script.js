@@ -1,7 +1,7 @@
-
+const body = document.querySelector("body")
 const container_game = document.querySelector(".container_game")
 const colorPicker = document.querySelector("#colorpicker")
-const normalMode = document.querySelector("#normalMode")
+const normalMode = colorPicker
 
 const eraserButton = document.querySelector("#eraser")
 const rainbowButton= document.querySelector("#rainbowMode")
@@ -15,6 +15,7 @@ let normalModeS = true
 let rainbowMode = false
 let eraser = false
 let pixels = sizeButton.valueAsNumber;
+let mousedown = false
 
 const modes = [normalMode, eraserButton, rainbowButton]
 
@@ -63,10 +64,12 @@ sizeButton.addEventListener('input', ()=>{
 
     let pixels = sizeButton.valueAsNumber;
     mode.textContent = modeText +pixels+"x"+ pixels
-    mode.style.color = color
-    
-    
+    mode.style.color = color    
 });
+
+body.addEventListener("mousedown",()=>mousedown = true)
+body.addEventListener("mouseup",()=>mousedown = false)
+
 sizeButton.addEventListener('mouseup', resize);
 
 
@@ -95,9 +98,10 @@ function layout(){
     }
     let skatches = document.querySelectorAll(".etch")
 
+
     skatches.forEach(etch=>etch.addEventListener("mouseover",function(e){
 
-
+    if(mousedown){
         if(rainbowMode){
             color =getRandomColor()
             
@@ -113,7 +117,8 @@ function layout(){
     
         mode.style.color = color
         e.target.style.cssText += `background-color: ${color}`
-        
+        console.log(mousedown)
+    }
     }))
 
 }

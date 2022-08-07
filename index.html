@@ -9,34 +9,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="container_pickers">
-        <div class="mode"></div>
-       
-        <div class="colorPicker_container picker">
-            <label for="colorpicker">Pick color:</label>
-            <input type="color" id="colorpicker" value="#000000" >
-            <input id="normalMode" class="clicked" type="submit" name="button" value="Normal mode">
-        </div>
-        <div class="rainbow picker">
-            <label for="rainbowMode">Rainbow:</label>
+    <h1>Etch A Scatch</h1>
+    <div class="container">
+        <div class="container_pickers">
+            <div class="mode"></div>
+            <span>Choose mode:</span>
+            <input type="color" id="colorpicker" value="#ff0000" >
             <input id="rainbowMode" type="submit" name="button" value="">
+            <input id="eraser" type="submit" name="button" value="ERASER"/>
+            <div class="numberPicker picker">
+                <label for="quantity">Size:</label>
+                <input type="range" min="2" max="200" value="10" id="size" class="slider">
+            </div>
+            <input id="clear" type="submit" name="button" value="CLEAR"/>
         </div>
-        <input id="eraser" type="submit" name="button" value="ERASER"/>
-        <div class="numberPicker picker">
-            <label for="quantity">Size:</label>
-            <input type="range" min="2" max="100" value="10" id="size" class="slider">
-        </div>
-        
-        <input id="clear" type="submit" name="button" value="CLEAR"/>
-        
+        <div class="container_game"></div>
     </div>
-    
-
-
-    </div>
-    <div class="container_game"></div>
-    
     <script src = "script.js"></script>
 </body>
 </html>

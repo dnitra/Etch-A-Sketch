@@ -1,12 +1,22 @@
 body{
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     gap: 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 25px;
     background-color: rgb(181, 181, 181);
 }
 
+.container{
+    display: flex;
+    justify-content: center;
+}
+h1{
+    margin: 0 0 0 20px;
+    text-align: center;
+
+}
 .container_game{
     width: 600px;
     height: 600px;
@@ -25,19 +35,23 @@ body{
 
 .etch{
     background-color: white;
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .container_pickers{
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 330px;
-    flex: 0 0 auto
+    width: 200px;
+    flex: 0 0 auto;
+    margin-right: 10px;
 }
-.colorPicker_container{
-    display: flex;
-   
-}
+
 
 #rainbowMode {
     
@@ -64,7 +78,6 @@ body{
 
 input{
     cursor: pointer;
-    flex: 1 1 auto;
     background-color: white;
     color: black;
 }
@@ -94,8 +107,8 @@ label {
     cursor: pointer;
     
 }
-#rainbowMode:hover{
-    box-shadow: 0px 0px 5px 5px #0ff;
+#rainbowMode:hover, #colorpicker:hover, #eraser:hover{
+    box-shadow: 0px 0px 5px 5px white;
 }
 
 @keyframes rainbowMode {
@@ -107,10 +120,19 @@ label {
 #colorpicker{
     border: none;
     height: 45px;
-    background-color: rgb(181, 181, 181)
+    width: 100%;
+    padding: 0;
+    background-color: rgb(181, 181, 181);
+
     
 }
-
+.numberPicker{
+    margin-top: 40px;
+}
+.slider{
+    flex: 1 1 auto;
+    direction: rtl
+}
 
 
 #size,#quantity, #clear,#normalMode, #eraser{
